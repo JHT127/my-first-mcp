@@ -79,3 +79,12 @@ this submission.
   to the host, so anything else written there would corrupt the connection.
 - `node_modules/` and `dist/` are excluded via `.gitignore` and are not part
   of this repo.
+
+Team 
+Taima Nazzal
+Shahd Shwekeyeh
+Joud Thaher
+
+Academy Website
+https://academy.nextflows.ai
+
