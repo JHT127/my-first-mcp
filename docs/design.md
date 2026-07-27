@@ -34,21 +34,10 @@ Claude calls `update_status` to update the record live, on stage.
 | `add_application` | Adds a new job application record. Use when the user says they applied somewhere. | `company` (string), `role` (string), `date_applied` (ISO date), `status` (enum, default "applied"), `notes` (string, optional) | `{ id, company, role, status, date_applied, notes }` | P0 |
 | `update_status` | Updates the status of an existing application. Use when the user reports a change (interview, rejection, offer). | `id` (string), `new_status` (enum) | updated record object | P0 |
 | `list_applications` | Lists all applications, optionally filtered by status. Read-only, no side effects. | `status` (enum, optional) | array of application records | P0 |
-| `get_next_actions` | Returns a prioritized list of suggested actions: stale applications needing follow-up, upcoming interviews, and recent status changes. Read-only. | none | array of `{ action, application_id, reason }` | P0 |
-| `get_stale_applications` | Flags applications with no status change in N days. Read-only. | `days_threshold` (number, default 14) | array of records + `days_since_update` | P1 |
-| `search_applications` | Searches applications by company or role keyword. Read-only. | `query` (string) | array of matching records | P1 |
-| `get_conversion_stats` | Breaks down response/interview rate by application source (referral, cold apply, LinkedIn, etc.). Read-only. | none | `{ source: { applied, responded, rate } }` | P1 |
-
-*(4 P0 tools rather than exactly 3 — see note below.)*
-
-> **Note on P0 count:** the brief asks for exactly 3 P0 tools. We are
-> treating `add_application`, `update_status`, and `list_applications` as
-> the non-negotiable, must-work-live foundation, with `get_next_actions`
-> as our headline P0 stretch tool since it depends directly on the other
-> three and is the centerpiece of the demo story above. If the mentor
-> wants a strict count of 3, `list_applications` is the one we'd fold into
-> P1, since `get_next_actions` internally performs an equivalent read and
-> can absorb that functionality if needed.
+| `get_next_actions` | Returns a prioritized list of suggested actions: stale applications needing follow-up, upcoming interviews, and recent status changes. Read-only. | none | array of `{ action, application_id, reason }` | P1 |
+| `get_stale_applications` | Flags applications with no status change in N days. Read-only. | `days_threshold` (number, default 14) | array of records + `days_since_update` | P2 |
+| `search_applications` | Searches applications by company or role keyword. Read-only. | `query` (string) | array of matching records | P2 |
+| `get_conversion_stats` | Breaks down response/interview rate by application source (referral, cold apply, LinkedIn, etc.). Read-only. | none | `{ source: { applied, responded, rate } }` | P2 |
 
 ## Out of Scope
 
