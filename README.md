@@ -81,8 +81,11 @@ this submission.
   of this repo.
 
 Team 
+
 Taima Nazzal
+
 Shahd Shwekeyeh
+
 Joud Thaher
 
 Academy Website
