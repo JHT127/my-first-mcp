@@ -84,6 +84,8 @@ Team
 Taima Nazzal
 Shahd Shwekeyeh
 Joud Thaher
+Razan Froukh
+
 
 Academy Website
 https://academy.nextflows.ai
