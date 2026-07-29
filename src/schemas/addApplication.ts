@@ -1,3 +1,5 @@
+// Schema for add_application tool
+
 import * as z from "zod/v4";
 
 export const addApplicationInputSchema = z.object({
@@ -25,7 +27,8 @@ export const addApplicationInputSchema = z.object({
       "applied",
       "interview",
       "offer",
-      "rejected"
+      "rejected",
+      "no_response"
     ])
     .default("applied")
     .describe("Current application status."),
