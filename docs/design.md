@@ -1,6 +1,13 @@
 # Design Doc — Job Application Tracker MCP
 *Part of the [NextFlows Academy](https://nextflows.ai/academy/ ) MCP Server Development.*
 
+## Team Members
+
+- Taima Nazal
+- Shahd Shwekeyeh
+- Joud Thahe
+- Razan Froukh
+
 ## Pitch
 
 Job hunting generates a lot of data and very little clarity — dozens of
