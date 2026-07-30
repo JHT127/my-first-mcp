@@ -100,3 +100,14 @@ priority tiers.*
    tools before P0 is proven stable. *Mitigation:* P0 → P1 → P2 → P3,
    strictly in order; P3 tools may remain stubs for Demo Day if time
    runs short.
+
+   ## Notes from reading MCP Servers README
+
+Reference: Model Context Protocol Servers repository
+
+- Tools use clear action-based names like `list_resources`, `create_x`, or `get_x`, which makes the purpose of each tool easy to understand.
+- Tool descriptions are short and explain what the tool does and when it should be used.
+- Input fields are described clearly with their expected type and purpose.
+- Tools are separated into small files instead of putting all handlers in one large file, making the server easier to maintain.
+- Errors should be clear and explain what went wrong instead of failing silently, so the user or model can understand how to fix the request.
+- 
