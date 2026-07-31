@@ -1,3 +1,4 @@
 {
-  "query": "follow up"
+  "limit": 3,
+  "status": "applied"
 }
