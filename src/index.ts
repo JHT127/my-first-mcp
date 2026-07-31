@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/server";
 import { serveStdio } from "@modelcontextprotocol/server/stdio";
 
 import { registerAddApplicationTool } from "./tools/addApplication.js";
+import { registerGetNextActionsTool } from "./tools/getNextActions.js";
 import { registerListApplicationsTool } from "./tools/listApplications.js";
 import { registerUpdateStatusTool } from "./tools/updateStatus.js";
 
@@ -14,6 +15,7 @@ function createServer(): McpServer {
   registerAddApplicationTool(server);
   registerListApplicationsTool(server);
   registerUpdateStatusTool(server);
+  registerGetNextActionsTool(server);
 
   return server;
 }
