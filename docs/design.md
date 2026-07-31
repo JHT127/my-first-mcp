@@ -48,13 +48,13 @@ priority tiers.*
 | `add_application` | Adds a new job application record. Use when the user says they applied somewhere. | `company` (string), `role` (string), `date_applied` (ISO date), `status` (enum, default "applied"), `source` (enum, default "cold_apply"), `notes` (string, optional) | `{ id, company, role, status, date_applied, source, notes }` | P0 |
 | `update_status` | Updates the status of an existing application. Use when the user reports a change (interview, rejection, offer). | `id` (string), `new_status` (enum) | updated record object | P0 |
 | `list_applications` | Lists all applications, optionally filtered by status. Read-only, no side effects. | `status` (enum, optional) | array of application records | P0 |
-| `get_next_actions` | Returns a prioritized list of suggested actions: stale applications needing follow-up, upcoming interviews, and recent status changes. Read-only. | none | array of `{ action, application_id, reason }` | P1 |
-| `get_stale_applications` | Flags applications with no status change in N days. Read-only. | `days_threshold` (number, default 14) | array of records + `days_since_update` | P2 |
-| `search_applications` | Searches applications by company or role keyword. Read-only. | `query` (string) | array of matching records | P2 |
-| `get_conversion_stats` | Breaks down response/interview rate by application source (referral, cold apply, LinkedIn, etc.). Read-only. | none | `{ source: { applied, responded, rate } }` | P2 |
-| `get_health_score` | Computes an overall job-search health score with human-readable reasons (consistency, response rate, follow-up gaps). Read-only. | none | `{ score: number, reasons: string[] }` | P3 |
-| `add_contact` | Adds a networking/recruiter contact record. Use when the user mentions a recruiter or networking contact. | `person` (string), `company` (string), `linkedin` (string, optional), `last_message_date` (ISO date, optional), `notes` (string, optional) | `{ id, person, company, linkedin, last_message_date, next_follow_up }` | P3 |
-| `get_reconnect_suggestions` | Suggests which networking contacts to reconnect with this week, based on last message date. Read-only. | none | array of `{ contact_id, person, reason }` | P3 |
+| `get_next_actions` | Returns a prioritized list of suggested actions: stale applications needing follow-up, upcoming interviews, and recent status changes. Read-only. | none | array of `{ action, application_id, reason }` | P0 |
+| `get_stale_applications` | Flags applications with no status change in N days. Read-only. | `days_threshold` (number, default 14) | array of records + `days_since_update` | P1 |
+| `search_applications` | Searches applications by company or role keyword. Read-only. | `query` (string) | array of matching records | P1 |
+| `get_conversion_stats` | Breaks down response/interview rate by application source (referral, cold apply, LinkedIn, etc.). Read-only. | none | `{ source: { applied, responded, rate } }` | P1 |
+| `get_health_score` | Computes an overall job-search health score with human-readable reasons (consistency, response rate, follow-up gaps). Read-only. | none | `{ score: number, reasons: string[] }` | P2 |
+| `add_contact` | Adds a networking/recruiter contact record. Use when the user mentions a recruiter or networking contact. | `person` (string), `company` (string), `linkedin` (string, optional), `last_message_date` (ISO date, optional), `notes` (string, optional) | `{ id, person, company, linkedin, last_message_date, next_follow_up }` | P2 |
+| `get_reconnect_suggestions` | Suggests which networking contacts to reconnect with this week, based on last message date. Read-only. | none | array of `{ contact_id, person, reason }` | P2 |
 
 ## Out of Scope
 
