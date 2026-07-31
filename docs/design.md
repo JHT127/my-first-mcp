@@ -5,7 +5,7 @@
 
 - Taima Nazal
 - Shahd Shwekeyeh
-- Joud Thahe
+- Joud Thaher
 - Razan Froukh
 
 ## Pitch
