@@ -53,3 +53,16 @@ export async function generateApplicationId(): Promise<string> {
 
   return `app-${String(nextNumber).padStart(3, "0")}`;
 }
+export async function updateApplicationStatus(
+  id: string,
+  newStatus: ApplicationData["status"]
+): Promise<ApplicationData> {
+  const applications = await loadApplications();
+  const application = applications.find((app) => app.id === id);
+  if (!application) {
+    throw new Error(`No application found with id: ${id}`);
+  }
+  application.status = newStatus;
+  await saveApplications(applications);
+  return application;
+}
