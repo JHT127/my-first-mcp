@@ -1,5 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/server";
 import { updateStatusInputSchema } from "../schemas/updateStatus.js";
+import { updateApplicationStatus } from "../lib/applications.js";
 
 export function registerUpdateStatusTool(server: McpServer) {
   server.registerTool(
@@ -9,19 +10,17 @@ export function registerUpdateStatusTool(server: McpServer) {
       inputSchema: updateStatusInputSchema,
     },
     async (input) => {
-    
-      return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(
-              { ok: true, stub: true, tool: "update_status", id: input.id, new_status: input.new_status },
-              null,
-              2
-            ),
-          },
-        ],
-      };
+      try {
+        const updated = await updateApplicationStatus(input.id, input.new_status);
+        return {
+          content: [{ type: "text", text: JSON.stringify(updated, null, 2) }],
+        };
+      } catch (err: any) {
+        console.error(`[update_status] ${err.message}`);
+        return {
+          content: [{ type: "text", text: `Error: ${err.message}` }],
+        };
+      }
     }
   );
 }
