@@ -1,23 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/server";
 
 import { getNextActionsInputSchema } from "../schemas/getNextActions.js";
+import { loadApplications } from "../lib/applications.js";
+import type { ApplicationData } from "../schemas/applicationData.js";
 
-export interface ApplicationRecord {
-  id: string;
-  company: string;
-  role: string;
-  date_applied: string;
-  status: "applied" | "interview" | "offer" | "rejected" | "no_response";
-  source:
-    | "cold_apply"
-    | "linkedin"
-    | "referral"
-    | "company_website"
-    | "career_fair";
-  notes?: string;
-}
-
-export function buildNextActions(applications: ApplicationRecord[]) {
+export function buildNextActions(applications: ApplicationData[]) {
   const today = new Date("2026-07-31T00:00:00.000Z");
 
   return applications
@@ -59,38 +46,52 @@ export function registerGetNextActionsTool(server: McpServer) {
         "Returns prioritized next actions for stale applications and recent status changes.",
       inputSchema: getNextActionsInputSchema,
     },
-    async () => {
-      const applications: ApplicationRecord[] = [
-        {
-          id: "app-1",
-          company: "Orion VLSI Technologies",
-          role: "Software Engineer",
-          date_applied: "2026-07-01",
-          status: "applied",
-          source: "linkedin",
-          notes: "No response yet",
-        },
-        {
-          id: "app-2",
-          company: "Exalt Technologies",
-          role: "Frontend Developer",
-          date_applied: "2026-07-28",
-          status: "interview",
-          source: "referral",
-          notes: "Interview scheduled",
-        },
-      ];
+    async (input) => {
+      try {
+        let applications = await loadApplications();
 
-      const actions = buildNextActions(applications);
+        if (input.status) {
+          applications = applications.filter(
+            (app) => app.status === input.status,
+          );
+        }
 
-      return {
-        content: [
-          {
-            type: "text",
-            text: JSON.stringify(actions, null, 2),
-          },
-        ],
-      };
+        let actions = buildNextActions(applications);
+
+        const limit = input.limit ?? 10;
+        actions = actions.slice(0, limit);
+
+        if (actions.length === 0) {
+          return {
+            content: [
+              {
+                type: "text",
+                text: "No next actions right now — nothing stale or recently updated.",
+              },
+            ],
+          };
+        }
+
+        return {
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify(actions, null, 2),
+            },
+          ],
+        };
+      } catch (err: any) {
+        console.error(`[get_next_actions] ${err.message}`);
+
+        return {
+          content: [
+            {
+              type: "text",
+              text: "Unable to compute next actions.",
+            },
+          ],
+        };
+      }
     },
   );
 }
