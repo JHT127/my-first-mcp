@@ -110,4 +110,20 @@ Reference: Model Context Protocol Servers repository
 - Input fields are described clearly with their expected type and purpose.
 - Tools are separated into small files instead of putting all handlers in one large file, making the server easier to maintain.
 - Errors should be clear and explain what went wrong instead of failing silently, so the user or model can understand how to fix the request.
-- 
+
+
+## Resources (Week 5+)
+
+Future versions of the Job Application Tracker MCP server will expose
+read-only MCP resources to provide documentation without requiring tool
+calls.
+
+Planned resources include:
+
+- `notes://faq` – Frequently asked questions about the server.
+- `notes://schema` – Reference for the application data schema.
+- `notes://sample-applications` – Example application records for testing.
+
+These resources will help AI assistants understand the project structure,
+application fields, and sample data while keeping them separate from the
+interactive tools.
