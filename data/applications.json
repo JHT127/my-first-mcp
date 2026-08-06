@@ -1,0 +1,20 @@
+[
+  {
+    "id": "app-001",
+    "company": "Exalt Technologies",
+    "role": "Software Engineer Intern",
+    "date_applied": "2026-07-01",
+    "status": "applied",
+    "source": "cold_apply",
+    "notes": "Waiting for response"
+  },
+  {
+    "id": "app-002",
+    "company": "Orion VLSI Technologies",
+    "role": "Verification Engineer Intern",
+    "date_applied": "2026-06-20",
+    "status": "interview",
+    "source": "linkedin",
+    "notes": "Interview scheduled"
+  }
+]
