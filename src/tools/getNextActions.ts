@@ -87,7 +87,11 @@ export function registerGetNextActionsTool(server: McpServer) {
         };
 
         // If we truncated the results, be explicit about it in the returned text.
-        const text = JSON.stringify(response, null, 2) + (truncated ? "\n\n(Note: results truncated to the requested limit)" : "");
+        const text =
+          JSON.stringify(response, null, 2) +
+          (truncated
+            ? "\n\n(Note: results truncated to the requested limit)"
+            : "");
 
         return {
           content: [
