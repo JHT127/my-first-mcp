@@ -8,13 +8,12 @@ export function registerListApplicationsTool(server: McpServer) {
     {
       title: "List Job Applications",
       description:
-        "Lists all job applications, optionally filtered by status.",
+        "Lists job applications, optionally filtered by status. Returns at most 50 applications.",
       inputSchema: listApplicationsInputSchema,
     },
-
     async (input) => {
       try {
-        const applications = await listApplications(input.status);
+        const result = await listApplications(input.status);
 
         return {
           content: [
@@ -23,7 +22,9 @@ export function registerListApplicationsTool(server: McpServer) {
               text: JSON.stringify(
                 {
                   statusFilter: input.status ?? null,
-                  applications,
+                  applications: result.applications,
+                  total: result.total,
+                  truncated: result.truncated,
                 },
                 null,
                 2
@@ -32,7 +33,7 @@ export function registerListApplicationsTool(server: McpServer) {
           ],
         };
       } catch (error) {
-        console.error("list_applications failed:", error);
+        console.error("list_applications failed");
 
         return {
           content: [

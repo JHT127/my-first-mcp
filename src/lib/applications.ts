@@ -8,6 +8,9 @@ import {
 
 const DATA_PATH = path.resolve("data", "applications.json");
 
+// Maximum number of applications returned by listApplications.
+const MAX_APPLICATIONS = 50;
+
 export async function loadApplications(): Promise<ApplicationData[]> {
   try {
     const file = await fs.readFile(DATA_PATH, "utf8");
@@ -16,7 +19,7 @@ export async function loadApplications(): Promise<ApplicationData[]> {
 
     return applicationsDataSchema.parse(data);
   } catch (error) {
-    console.error("Failed to load applications:", error);
+    console.error("Failed to load applications data.");
     throw new Error("Could not read applications data.");
   }
 }
@@ -80,12 +83,24 @@ export async function updateApplicationStatus(
 
 export async function listApplications(
   status?: ApplicationData["status"]
-): Promise<ApplicationData[]> {
+): Promise<{
+  applications: ApplicationData[];
+  total: number;
+  truncated: boolean;
+}> {
   const applications = await loadApplications();
 
-  if (!status) {
-    return applications;
-  }
+  const filteredApplications = status
+    ? applications.filter((app) => app.status === status)
+    : applications;
 
-  return applications.filter((app) => app.status === status);
+  const total = filteredApplications.length;
+
+  const truncated = total > MAX_APPLICATIONS;
+
+  return {
+    applications: filteredApplications.slice(0, MAX_APPLICATIONS),
+    total,
+    truncated,
+  };
 }
