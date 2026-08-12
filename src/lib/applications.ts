@@ -18,7 +18,7 @@ export async function loadApplications(): Promise<ApplicationData[]> {
     const data = JSON.parse(file);
 
     return applicationsDataSchema.parse(data);
-  } catch (error) {
+  } catch { 
     console.error("Failed to load applications data.");
     throw new Error("Could not read applications data.");
   }
@@ -38,6 +38,16 @@ export async function addApplication(
   application: ApplicationData
 ): Promise<ApplicationData> {
   const applications = await loadApplications();
+
+  const duplicate = applications.some(
+    (app) => app.id === application.id
+  );
+
+  if (duplicate) {
+    throw new Error(
+      `Application with id ${application.id} already exists.`
+    );
+  }
 
   applications.push(application);
 
