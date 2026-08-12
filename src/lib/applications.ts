@@ -62,22 +62,28 @@ export async function generateApplicationId(): Promise<string> {
   return `app-${String(nextNumber).padStart(3, "0")}`;
 }
 
+const VALID_STATUSES: ApplicationData["status"][] = [
+  "applied",
+  "interview",
+  "offer",
+  "rejected",
+  "no_response",
+];
+
 export async function updateApplicationStatus(
   id: string,
   newStatus: ApplicationData["status"]
 ): Promise<ApplicationData> {
+  if (!VALID_STATUSES.includes(newStatus)) {
+    throw new Error(`Invalid status: ${newStatus}`);
+  }
   const applications = await loadApplications();
-
   const application = applications.find((app) => app.id === id);
-
   if (!application) {
     throw new Error(`No application found with id: ${id}`);
   }
-
   application.status = newStatus;
-
   await saveApplications(applications);
-
   return application;
 }
 
