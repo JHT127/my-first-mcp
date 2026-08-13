@@ -1,13 +1,5 @@
-# My First MCP
-
-**NextFlow AI Internship — Submission 3 (Module 1.5 & 1.6)**
-
-This is my first working MCP (Model Context Protocol) server. The goal of this
-submission is to build the smallest possible end-to-end MCP pipeline — one
-server, one tool — and prove it actually works by connecting to it with MCP
-Inspector.
-
-## What this server does
+````markdown
+# Job Application Tracker MCP
 
 The server exposes a single tool called `greet`:
 
