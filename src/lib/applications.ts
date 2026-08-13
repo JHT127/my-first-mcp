@@ -51,6 +51,12 @@ export async function addApplication(
 
   applications.push(application);
 
+  applications.sort(
+    (a, b) =>
+      new Date(a.date_applied).getTime() -
+      new Date(b.date_applied).getTime()
+  );
+
   await saveApplications(applications);
 
   return application;
