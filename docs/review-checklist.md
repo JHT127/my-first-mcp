@@ -14,7 +14,7 @@ Dareen Abualhaj
 
 ## Review Session
 Live testing session via MCP Inspector (job-application-tracker server),
-conducted with Shahd Raed, Razan Froukh, and Dareen Abualhaj — 8/13/2026
+conducted with Shahd Raed, Razan Froukh, Taima Nazzal , Joud Thaher and Dareen Abualhaj — 8/13/2026
 (Google Meet, screenshot attached with submission).
 
 ## Tool-Level Testing Notes
