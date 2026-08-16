@@ -3,7 +3,7 @@
 **Tools covered:** `add_application`, `list_applications`, `update_status`, `get_next_actions`
 **Test environment:** MCP Inspector, local `./data/applications.json`
 **Happy-path inputs:** reused from `examples/*.json`
-**Screenshot evidence:** numbered screenshots refer to the attached evidence document (`Doc1.docx`, images 1–14)
+**Screenshot evidence:** see `docs/evidence/week5-test-evidence.pdf`
 
 ## 5.1 + 5.2 — Test Plan & Execution
 
