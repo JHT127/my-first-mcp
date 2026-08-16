@@ -14,7 +14,12 @@ export function registerListApplicationsTool(server: McpServer) {
 
     async (input) => {
       try {
-        const applications = await listApplications(input.status);
+        const allMatching = await listApplications(input.status);
+
+        const CAP = 50;
+        const total = allMatching.length;
+        const truncated = total > CAP;
+        const applications = allMatching.slice(0, CAP);
 
         return {
           content: [
@@ -24,6 +29,8 @@ export function registerListApplicationsTool(server: McpServer) {
                 {
                   statusFilter: input.status ?? null,
                   applications,
+                  total,
+                  truncated,
                 },
                 null,
                 2
