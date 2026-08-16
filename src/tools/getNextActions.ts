@@ -56,10 +56,15 @@ export function registerGetNextActionsTool(server: McpServer) {
           );
         }
 
-        let actions = buildNextActions(applications);
+        const allActions = buildNextActions(applications);
 
-        const limit = input.limit ?? 10;
-        actions = actions.slice(0, limit);
+        // Defense in depth: clamp even if schema-level cap is bypassed/changed.
+        const requestedLimit = input.limit ?? 10;
+        const effectiveLimit = Math.min(Math.max(1, requestedLimit), 10);
+
+        const total = allActions.length;
+        const truncated = total > effectiveLimit;
+        const actions = allActions.slice(0, effectiveLimit);
 
         if (actions.length === 0) {
           return {
@@ -76,7 +81,7 @@ export function registerGetNextActionsTool(server: McpServer) {
           content: [
             {
               type: "text",
-              text: JSON.stringify(actions, null, 2),
+              text: JSON.stringify({ actions, total, truncated }, null, 2),
             },
           ],
         };
