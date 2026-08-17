@@ -304,6 +304,8 @@ Additional documentation is available in the `docs` directory:
 * `threat-model.md` — Security threats and mitigations.
 * `review-checklist.md` — Peer review results and action items.
 
+Example conversations showing the server in use with a model are in [`examples/conversations.md`](./examples/conversations.md).
+
 ## Project Structure
 
 ```text
