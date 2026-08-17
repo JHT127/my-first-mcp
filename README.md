@@ -175,54 +175,6 @@ Update application app-001 to interview status.
 What are my next actions for my job applications?
 ```
 
-## Application Statuses
-
-The supported application statuses are:
-
-```text
-applied
-interview
-offer
-rejected
-no_response
-```
-
-## Application Sources
-
-The supported application sources are:
-
-```text
-cold_apply
-linkedin
-referral
-company_website
-career_fair
-```
-
-## Data Storage
-
-Application data is stored in a local JSON file:
-
-```text
-./data/applications.json
-```
-
-Example application:
-
-```json
-{
-  "id": "app-001",
-  "company": "Example Company",
-  "role": "Software Engineer",
-  "date_applied": "2026-08-12",
-  "status": "applied",
-  "source": "linkedin",
-  "notes": ""
-}
-```
-
-The project does not use an external database or API.
-
 ## Troubleshooting
 
 ### 1. `npm` or `node` is not recognized
@@ -271,6 +223,54 @@ For example, this invalid input:
 ```
 
 should be rejected because the role is empty.
+
+## Application Statuses
+
+The supported application statuses are:
+
+```text
+applied
+interview
+offer
+rejected
+no_response
+```
+
+## Application Sources
+
+The supported application sources are:
+
+```text
+cold_apply
+linkedin
+referral
+company_website
+career_fair
+```
+
+## Data Storage
+
+Application data is stored in a local JSON file:
+
+```text
+./data/applications.json
+```
+
+Example application:
+
+```json
+{
+  "id": "app-001",
+  "company": "Example Company",
+  "role": "Software Engineer",
+  "date_applied": "2026-08-12",
+  "status": "applied",
+  "source": "linkedin",
+  "notes": ""
+}
+```
+
+The project does not use an external database or API.
 
 ## Security
 
@@ -361,7 +361,7 @@ my-first-mcp/
 ## Team
 
 * Taima Nazzal
-* Shahd Raed Shwekeyeh
+* Shahd Shwekeyeh
 * Joud Thaher
 * Razan Froukh
 
