@@ -1,12 +1,14 @@
-import { promises as fs } from "node:fs";
-import * as path from "node:path";
+﻿import { promises as fs } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import {
   applicationsDataSchema,
   ApplicationData,
 } from "../schemas/applicationData.js";
 
-const DATA_PATH = path.resolve("data", "applications.json");
+const DATA_PATH = fileURLToPath(
+  new URL("../../data/applications.json", import.meta.url)
+);
 
 export async function loadApplications(): Promise<ApplicationData[]> {
   try {
@@ -51,9 +53,7 @@ export async function generateApplicationId(): Promise<string> {
   }
 
   const lastId = applications[applications.length - 1].id;
-
   const lastNumber = Number(lastId.replace("app-", ""));
-
   const nextNumber = lastNumber + 1;
 
   return `app-${String(nextNumber).padStart(3, "0")}`;
