@@ -85,6 +85,63 @@ After Inspector starts:
 3. Call the tools with valid inputs.
 4. Test invalid inputs and confirm that validation errors are returned.
 
+## Connect to Claude Desktop
+
+Claude Desktop can run this local MCP server over stdio.
+
+### Windows
+
+1. Install and update Claude Desktop.
+2. Make sure Node.js and npm are available.
+3. Open Claude Desktop and go to **Settings → Developer → Edit Config**.
+4. Add the following MCP server configuration. Replace `YOUR_WINDOWS_USERNAME` with your Windows username:
+
+```json
+{
+  "mcpServers": {
+    "my-first-mcp": {
+      "command": "C:/Program Files/nodejs/npx.cmd",
+      "args": [
+        "-y",
+        "tsx",
+        "C:/Users/YOUR_WINDOWS_USERNAME/Desktop/my-first-mcp/src/index.ts"
+      ],
+      "cwd": "C:/Users/YOUR_WINDOWS_USERNAME/Desktop/my-first-mcp"
+    }
+  }
+}
+```
+
+5. Save the configuration.
+6. Fully quit Claude Desktop and open it again.
+7. Open a new chat and confirm that `my-first-mcp` is running in the tools/connectors section.
+8. Approve tool calls when Claude asks for permission.
+
+### Verify the connection
+
+Try these example prompts:
+
+```text
+List all my job applications.
+```
+
+```text
+Add a job application for Google for the Software Engineer role.
+The application date is 2026-08-12, the status is applied, and the source is linkedin.
+```
+
+```text
+What are my next actions for my job applications?
+```
+
+On Windows, if Claude cannot find `npx`, use the full path to `npx.cmd`, for example:
+
+```text
+C:/Program Files/nodejs/npx.cmd
+```
+
+The `cwd` should point to the repository root, while the `src/index.ts` argument above uses an absolute path so Claude Desktop can start the server even when its own working directory is different.
+
 ## Available Tools
 
 | Tool                | Description                                               |
