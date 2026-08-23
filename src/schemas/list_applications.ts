@@ -1,7 +1,6 @@
-// Schema for list_applications tool
-
 import * as z from "zod/v4";
 
+// Schema for list_applications tool
 export const listApplicationsInputSchema = z.object({
   status: z
     .enum([

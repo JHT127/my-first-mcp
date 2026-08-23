@@ -58,7 +58,13 @@ export function registerGetNextActionsTool(server: McpServer) {
 
         let actions = buildNextActions(applications);
 
-        const limit = input.limit ?? 10;
+        const requestedLimit = input.limit ?? 10;
+        // Enforce schema-level cap and ensure a sensible lower bound.
+        const limit = Math.min(Math.max(1, requestedLimit), 10);
+
+        const total = actions.length;
+        const truncated = total > limit;
+
         actions = actions.slice(0, limit);
 
         if (actions.length === 0) {
@@ -72,16 +78,31 @@ export function registerGetNextActionsTool(server: McpServer) {
           };
         }
 
+        const response = {
+          statusFilter: input.status ?? null,
+          total,
+          truncated,
+          limit,
+          actions,
+        };
+
+        // If we truncated the results, be explicit about it in the returned text.
+        const text =
+          JSON.stringify(response, null, 2) +
+          (truncated
+            ? "\n\n(Note: results truncated to the requested limit)"
+            : "");
+
         return {
           content: [
             {
               type: "text",
-              text: JSON.stringify(actions, null, 2),
+              text,
             },
           ],
         };
       } catch (err: any) {
-        console.error(`[get_next_actions] ${err.message}`);
+        console.error("[get_next_actions] error", err);
 
         return {
           content: [
