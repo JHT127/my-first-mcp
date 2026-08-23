@@ -8,10 +8,9 @@ export function registerListApplicationsTool(server: McpServer) {
     {
       title: "List Job Applications",
       description:
-        "Lists all job applications, optionally filtered by status.",
+        "Lists job applications, optionally filtered by status. Returns at most 50 applications.",
       inputSchema: listApplicationsInputSchema,
     },
-
     async (input) => {
       try {
         const allMatching = await listApplications(input.status);
@@ -39,7 +38,7 @@ export function registerListApplicationsTool(server: McpServer) {
           ],
         };
       } catch (error) {
-        console.error("list_applications failed:", error);
+        console.error("list_applications failed");
 
         return {
           content: [

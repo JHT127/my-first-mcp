@@ -77,6 +77,21 @@ export function registerGetNextActionsTool(server: McpServer) {
           };
         }
 
+        const response = {
+          statusFilter: input.status ?? null,
+          total,
+          truncated,
+          limit,
+          actions,
+        };
+
+        // If we truncated the results, be explicit about it in the returned text.
+        const text =
+          JSON.stringify(response, null, 2) +
+          (truncated
+            ? "\n\n(Note: results truncated to the requested limit)"
+            : "");
+
         return {
           content: [
             {
@@ -86,7 +101,7 @@ export function registerGetNextActionsTool(server: McpServer) {
           ],
         };
       } catch (err: any) {
-        console.error(`[get_next_actions] ${err.message}`);
+        console.error("[get_next_actions] error", err);
 
         return {
           content: [
