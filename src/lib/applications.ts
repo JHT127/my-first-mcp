@@ -1,12 +1,14 @@
-import { promises as fs } from "node:fs";
-import * as path from "node:path";
+﻿import { promises as fs } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import {
   applicationsDataSchema,
   ApplicationData,
 } from "../schemas/applicationData.js";
 
-const DATA_PATH = path.resolve("data", "applications.json");
+const DATA_PATH = fileURLToPath(
+  new URL("../../data/applications.json", import.meta.url)
+);
 
 // Maximum number of applications returned by listApplications.
 const MAX_APPLICATIONS = 50;
@@ -70,9 +72,7 @@ export async function generateApplicationId(): Promise<string> {
   }
 
   const lastId = applications[applications.length - 1].id;
-
   const lastNumber = Number(lastId.replace("app-", ""));
-
   const nextNumber = lastNumber + 1;
 
   return `app-${String(nextNumber).padStart(3, "0")}`;
@@ -120,9 +120,5 @@ export async function listApplications(
 
   const truncated = total > MAX_APPLICATIONS;
 
-  return {
-    applications: filteredApplications.slice(0, MAX_APPLICATIONS),
-    total,
-    truncated,
-  };
+ل  return applications.filter((app) => app.status === status);
 }
