@@ -120,5 +120,9 @@ export async function listApplications(
 
   const truncated = total > MAX_APPLICATIONS;
 
-  return applications.filter((app) => app.status === status);
+  return {
+    applications: filteredApplications.slice(0, MAX_APPLICATIONS),
+    total,
+    truncated
+  };
 }
