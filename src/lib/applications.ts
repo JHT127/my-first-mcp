@@ -120,5 +120,5 @@ export async function listApplications(
 
   const truncated = total > MAX_APPLICATIONS;
 
-ل  return applications.filter((app) => app.status === status);
+  return applications.filter((app) => app.status === status);
 }
