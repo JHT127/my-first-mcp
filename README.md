@@ -1,3 +1,4 @@
+````markdown
 # Job Application Tracker MCP
 
 A Model Context Protocol (MCP) server for managing job application records.
@@ -75,7 +76,33 @@ npm run inspect
 The direct Inspector command is:
 
 ```bash
-npx @modelcontextprotocol/inspector npx tsx src/index.ts
+npm run inspect
+```
+
+In MCP Inspector:
+
+1. Open the Tools section.
+2. Confirm the four tools are listed:
+
+   * `add_application`
+   * `list_applications`
+   * `update_status`
+   * `get_next_actions`
+3. Test each tool with valid input.
+4. Test invalid input and confirm that validation rejects it.
+
+### Example validation test
+
+For `add_application`, an empty role should be rejected:
+
+```json
+{
+  "company": "Google",
+  "role": "",
+  "date_applied": "2026-08-12",
+  "status": "applied",
+  "source": "linkedin"
+}
 ```
 
 After Inspector starts:

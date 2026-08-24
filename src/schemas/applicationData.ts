@@ -1,13 +1,23 @@
 import * as z from "zod/v4";
 
 export const applicationDataSchema = z.object({
-  id: z.string(),
+  id: z
+    .string()
+    .regex(/^app-\d+$/, "Invalid application ID."),
 
-  company: z.string(),
+  company: z
+    .string()
+    .min(1)
+    .max(100),
 
-  role: z.string(),
+  role: z
+    .string()
+    .min(1)
+    .max(100),
 
-  date_applied: z.string(),
+  date_applied: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/),
 
   status: z.enum([
     "applied",
@@ -25,7 +35,9 @@ export const applicationDataSchema = z.object({
     "career_fair",
   ]),
 
-  notes: z.string(),
+  notes: z
+    .string()
+    .max(500),
 });
 
 export const applicationsDataSchema = z.array(applicationDataSchema);
