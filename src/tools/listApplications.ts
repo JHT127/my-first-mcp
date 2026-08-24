@@ -13,12 +13,7 @@ export function registerListApplicationsTool(server: McpServer) {
     },
     async (input) => {
       try {
-        const allMatching = await listApplications(input.status);
-
-        const CAP = 50;
-        const total = allMatching.length;
-        const truncated = total > CAP;
-        const applications = allMatching.slice(0, CAP);
+        const { applications, total, truncated } = await listApplications(input.status);
 
         return {
           content: [
@@ -38,8 +33,7 @@ export function registerListApplicationsTool(server: McpServer) {
           ],
         };
       } catch (error) {
-        console.error("list_applications failed");
-
+        console.error("list_applications failed:", error);
         return {
           content: [
             {
