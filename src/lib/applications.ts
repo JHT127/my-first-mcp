@@ -20,7 +20,7 @@ export async function loadApplications(): Promise<ApplicationData[]> {
     const data = JSON.parse(file);
 
     return applicationsDataSchema.parse(data);
-  } catch { 
+  } catch {
     console.error("Failed to load applications data.");
     throw new Error("Could not read applications data.");
   }
@@ -71,11 +71,15 @@ export async function generateApplicationId(): Promise<string> {
     return "app-001";
   }
 
-  const lastId = applications[applications.length - 1].id;
-  const lastNumber = Number(lastId.replace("app-", ""));
-  const nextNumber = lastNumber + 1;
+  // Use the highest existing numeric id, not the last array element —
+  // the array is sorted by date_applied, so the last element is not
+  // guaranteed to have the highest id.
+  const maxNumber = applications.reduce((max, app) => {
+    const num = Number(app.id.replace("app-", ""));
+    return num > max ? num : max;
+  }, 0);
 
-  return `app-${String(nextNumber).padStart(3, "0")}`;
+  return `app-${String(maxNumber + 1).padStart(3, "0")}`;
 }
 
 const VALID_STATUSES: ApplicationData["status"][] = [
@@ -103,6 +107,24 @@ export async function updateApplicationStatus(
   return application;
 }
 
+export async function deleteApplication(
+  id: string
+): Promise<ApplicationData> {
+  const applications = await loadApplications();
+
+  const index = applications.findIndex((app) => app.id === id);
+
+  if (index === -1) {
+    throw new Error(`No application found with id: ${id}`);
+  }
+
+  const [removed] = applications.splice(index, 1);
+
+  await saveApplications(applications);
+
+  return removed;
+}
+
 export async function listApplications(
   status?: ApplicationData["status"]
 ): Promise<{
@@ -123,6 +145,6 @@ export async function listApplications(
   return {
     applications: filteredApplications.slice(0, MAX_APPLICATIONS),
     total,
-    truncated
+    truncated,
   };
 }
