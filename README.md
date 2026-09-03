@@ -1,3 +1,4 @@
+
 ````markdown
 # Job Application Tracker MCP
 
@@ -18,6 +19,7 @@ Application data is stored locally in:
 
 The project does not require external APIs, databases, API keys, or network services.
 
+Built as part of [NextFlows Academy](https://nextflows.ai/academy/portal/dashboard?cohort=ac421725-af45-4094-a108-f8485d13fe67) — Building MCP AI Engines program.
 ## Requirements
 
 Before installing the project, make sure you have:
